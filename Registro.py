@@ -1,15 +1,10 @@
+from NullEmpregado import NullEmpregado
 import pickle
 from Agenda import Agenda
-from Taxas import Taxas
-from Vendas import Vendas
-from CartaoPonto import CartaoPonto
 from Comissionado import Comissionado
 from Horista import Horista
 from Assalariado import Assalariado
 import random
-import os
-
-clear = lambda: os.system('cls')
 
 class Registro():
     #lista para armazena 
@@ -30,9 +25,28 @@ class Registro():
                     break
             return x
 
+    def salva_lista():
+        pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
+
     #Funções que reger Empregados
+
+    def get_empregados():
+        obj = NullEmpregado()
+        k=int(input("Sabe o ID do funcionario?\n1-Sim\n2-Não\n3-Volta\n>>>"))
+        if k==1 or k==2:
+            if k==2:
+                Registro.mostra_emp()
+            emp= int(input("Digite o ID do empregado:\n>>>"))
+            for i in Registro.emp_cadastrados:
+                if emp == i.id_emp:
+                    return i
+            return obj
+        elif k==3:
+                return
+        else:
+            print("OPÇÃO INVÁLIDA")
+
     def mostra_emp():
-        clear()
         num_emp = len(Registro.emp_cadastrados)
         print("Empregados Disponíveis: {}\n".format(num_emp))
         for i in Registro.emp_cadastrados:
@@ -41,7 +55,6 @@ class Registro():
         h=input("ENTER")
 
     def add_empregado():
-        clear()
         id_emp=Registro.gera_id()
         i=0
         while(i!=1):
@@ -63,177 +76,77 @@ class Registro():
             else:
                 print("TIPO INVÁLIDO")
         Registro.emp_cadastrados.append(new)
-        pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-        clear()
+        Registro.salva_lista()
         print("Empregado cadastradro com  sucesso!!!")
         new.toEmpregado()
         h=input("ENTER")
 
     def remover_empregado():
-        k=int(input("Sabe o ID do funcionario?\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    Registro.emp_cadastrados.remove(i)
-                    print("Empregado Removido com Sucesso!!")
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    k=input("ENTER")
-                    return
-            print("Empregado Não cadastrado")
-            k = input("ENTER")
-        elif k==3:
-                return
-        else:
-            print("OPÇÃO INVÁLIDA")
-        
-    def altera_dados():
-        k=int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp = int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    i.modificar_cadrastro()
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    i.toEmpregado()
-                    h=input("ENTER")
-                    return
-            print("Empregado Não cadastrado")
-            k = input("ENTER")
-        elif k == 3:
+        i = Registro.get_empregados()
+        if type(i) != NullEmpregado: 
+            Registro.emp_cadastrados.remove(i)
+            print("Empregado Removido com Sucesso!!")
+            Registro.salva_lista()
+            k=input("ENTER")
             return
         else:
-            print("OPÇÃO INVÁLIDA")
+            print("Empregado Não cadastrado")
+            k = input("ENTER")
+        
+    def altera_dados():
+        i = Registro.get_empregados()
+        i.modificar_cadrastro()
+        Registro.salva_lista()
+        i.toEmpregado()
+        h=input("ENTER")
+        return
     
     #Cartão de ponto
     def cartao_ponto():
-        k = int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    novo_ponto = CartaoPonto()
-                    novo_ponto.setpPonto()
-                    i.pontos.append(novo_ponto)
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    return
-            print("Empregado Não Cadastrado")
-            k = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
+        i = Registro.get_empregados()
+        i.setNovo_Ponto()
+        Registro.salva_lista()
+        return
 
     def ver_cartao_ponto():
-        k = int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    for d in i.pontos:
-                        d.toPonto()
-                    k = input("ENTER")
-                    return
-            print("Empregado Não Cadastrado")
-            k = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
+        i = Registro.get_empregados()
+        print("Pontos Até o Momento: {}\n".format(len(i.pontos)))
+        for d in i.pontos:
+            d.toPonto()
+        k = input("ENTER")
+        return
     
     #Vendas
     def ver_vendas():
-        k = int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    print("Vendas Realizadas Até o Momento: {}\n".format(len(i.vendas)))
-                    for d in i.vendas:
-                        d.toVenda()
-                        print()
-                    h = input("ENTER")
-                    return
-            print("Empregado Não Cadastrado")
-            k = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
-            k = input("ENTER")
+        i = Registro.get_empregados()
+        print("Vendas Até o Momento: {}\n".format(len(i.vendas)))
+        for d in i.vendas:
+            d.toVenda()
+            print()
+        h = input("ENTER")
+        return
     
     def lanca_vendas():
-        k=int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp = int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    new_venda = Vendas()
-                    new_venda.cadrastra(emp)
-                    i.vendas.append(new_venda)
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    return
-            print("Empregado Não Cadastrado")
-            h = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
-            h = input("ENTER")
+        i = Registro.get_empregados()
+        i.setNova_Venda()
+        Registro.salva_lista()
+        return
 
     #Taxas
     def ver_taxas():
-        k = int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    for d in i.taxas:
-                        d.toTaxa()
-                    return
-            print("Empregado Não Cadastrado")
-            k = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
-            k = input("ENTER")
+        i = Registro.get_empregados()
+        print("Taxas Até o Momento: {}\n".format(len(i.taxas)))
+        for d in i.taxas:
+            d.toTaxa()
+        print()
+        h = input("ENTER")
+        return
 
     def lanca_taxa():
-
-        k=int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp = int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    new_taxa = Taxas()
-                    new_taxa.cadastrar(emp)
-                    i.taxas.append(new_taxa)
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    return
-            print("Empregado Não Cadastrado")
-            h = input("ENTER")
-        elif k == 3:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
-            h = input("ENTER")
+        i = Registro.get_empregados()
+        i.setNova_Taxa()
+        Registro.salva_lista()
+        return
 
     #Agenda
     def criar_agenda():
@@ -261,7 +174,6 @@ class Registro():
                 if emp == i.id_emp:
                     Registro.mostra_agendas()
                     ag = int(input("Digite a Agenda Desejada:\n1-Semanalmente\n2-Bi-Semanalmente\n3-Mensalmente\n4-Anualmente\n>>>"))
-                    x = 0
                     x = 0
                     while(x!=1):
                         if ag==1 or ag==2:

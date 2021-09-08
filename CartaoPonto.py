@@ -6,7 +6,7 @@ class CartaoPonto():
         self.data =data
         self.hora = hora
 
-    def setpPonto(self):
+    def setPonto(self):
         self.data = datetime.now()
         self.hora = float(input("Digite a quantidade de Horas.minutos trabalhados:\n>>>"))
         print("Ponto Batido com sucesso:")
@@ -19,7 +19,4 @@ class CartaoPonto():
    
     def getPonto(self):
         return self.hora
-
-    def newmethod113(self):
-        return 
         

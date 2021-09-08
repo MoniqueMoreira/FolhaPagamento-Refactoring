@@ -1,8 +1,10 @@
+from Vendas import Vendas
+from CartaoPonto import CartaoPonto
 from datetime import datetime
 from Sindicato import Sindicato
 from Banco import Banco
 
-class Empregados(Sindicato,Banco):
+class Empregados(Sindicato,Banco,CartaoPonto,Vendas):
 
     def __init__(self,id_emp = "-------------",data_cad = "-------------",nome ="-------------",endereco="-------------",tipo = "-------------",pagamento = "-------------",agenda_emp = "-------------",dia = "-------------",mes= "-------------",ult_salario= "-------------",sindicato = "-------------"):
         self.id_emp = id_emp
@@ -72,6 +74,16 @@ class Empregados(Sindicato,Banco):
                     i=1
                 else:
                     print("FORMA DE PAGAMNTO INVÁLIDA")
+
+    def setNovo_Ponto(self):
+        novo_ponto = CartaoPonto()
+        novo_ponto.setPonto()
+        self.pontos.append(novo_ponto)
+
+    def setNova_Venda(self):
+        new_venda = Vendas()
+        new_venda.setVendas()
+        self.vendas.append(new_venda)
 
     def toEmpregados(self):
         print("Data de Cadastro: {}".format(self.data_cad))
