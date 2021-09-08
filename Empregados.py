@@ -1,10 +1,11 @@
+from Taxas import Taxas
 from Vendas import Vendas
 from CartaoPonto import CartaoPonto
 from datetime import datetime
 from Sindicato import Sindicato
 from Banco import Banco
 
-class Empregados(Sindicato,Banco,CartaoPonto,Vendas):
+class Empregados(Sindicato,Banco,CartaoPonto,Vendas,Taxas):
 
     def __init__(self,id_emp = "-------------",data_cad = "-------------",nome ="-------------",endereco="-------------",tipo = "-------------",pagamento = "-------------",agenda_emp = "-------------",dia = "-------------",mes= "-------------",ult_salario= "-------------",sindicato = "-------------"):
         self.id_emp = id_emp
@@ -84,6 +85,29 @@ class Empregados(Sindicato,Banco,CartaoPonto,Vendas):
         new_venda = Vendas()
         new_venda.setVendas()
         self.vendas.append(new_venda)
+
+    def setNova_Taxa(self):
+        new_taxa = Taxas()
+        new_taxa.setTaxa()
+        self.taxas.append(new_taxa)
+
+    def setNova_Agenda(self):
+        ag = int(input("Digite a Agenda Desejada:\n1-Semanalmente\n2-Bi-Semanalmente\n3-Mensalmente\n4-Anualmente\n>>>"))
+        if ag==1 or ag==2:
+            if ag == 1:
+                self.agenda_emp = "Semanalmente"
+            else:
+                self.agenda_emp = "Bi-Semanalmente"
+
+            self.dia = input("Digite o Dia da Semana Disponivel na Agenda:\n>>>").capitalize()
+        elif ag==3:
+            self.agenda_emp = "Mensalmente"
+            self.dia = int(input("Digite o Dia do Mês Disponivel na Agenda:\n>>>"))
+        else:
+            self.agenda_emp = "Anualmente"
+            self.dia = int(input("Digite o Dia do Mês Disponivel na Agenda:\n>>>"))
+            self.mes = int(input("Digite o Mês do Ano Disponivel na Agenda:\n>>>"))
+        self.ult_salario = "-------------"
 
     def toEmpregados(self):
         print("Data de Cadastro: {}".format(self.data_cad))

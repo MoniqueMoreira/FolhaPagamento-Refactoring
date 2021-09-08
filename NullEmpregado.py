@@ -20,3 +20,7 @@ class NullEmpregado():
     def modificar_cadrastro(self):
         print("Empregado Não cadastrado")
         k = input("ENTER")
+
+    def setNova_Agenda(self):
+        print("Empregado Não cadastrado")
+        k = input("ENTER")

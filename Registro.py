@@ -27,6 +27,7 @@ class Registro():
 
     def salva_lista():
         pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
+        pickle.dump( Registro.agenda_disp, open( "agendas_disp.pickls", "wb" ) )
 
     #Funções que reger Empregados
 
@@ -155,7 +156,7 @@ class Registro():
         nAgenda = Agenda()
         nAgenda.criar_agenda()
         Registro.agenda_disp.append(nAgenda)
-        pickle.dump( Registro.agenda_disp, open( "agendas_disp.pickls", "wb" ) )
+        Registro.salva_lista()
         print("Nova agenda foi cria com Sucesso!!!")
 
     def mostra_agendas():
@@ -165,46 +166,11 @@ class Registro():
         f = input("ENTER")
 
     def muda_agenda_emp():
-        k = int(input("Sabe o ID do Empregado:\n1-Sim\n2-Não\n3-Volta\n>>>"))
-        if k==1 or k==2:
-            if k==2:
-                Registro.mostra_emp()
-            emp= int(input("Digite o ID do empregado:\n>>>"))
-            for i in Registro.emp_cadastrados:
-                if emp == i.id_emp:
-                    Registro.mostra_agendas()
-                    ag = int(input("Digite a Agenda Desejada:\n1-Semanalmente\n2-Bi-Semanalmente\n3-Mensalmente\n4-Anualmente\n>>>"))
-                    x = 0
-                    while(x!=1):
-                        if ag==1 or ag==2:
-                            if ag == 1:
-                                i.agenda_emp = "Semanalmente"
-                            else:
-                                i.agenda_emp = "Bi-Semanalmente"
-                            i.dia = input("Digite o Dia da Semana Disponivel na Agenda:\n>>>").capitalize()
-                            x=1
-                        elif ag==3:
-                            i.agenda_emp = "Mensalmente"
-                            i.dia = int(input("Digite o Dia do Mês Disponivel na Agenda:\n>>>"))
-                            x=1
-                        elif ag==4:
-                            i.agenda_emp = "Anualmente"
-                            i.dia = int(input("Digite o Dia do Mês Disponivel na Agenda:\n>>>"))
-                            i.mes = int(input("Digite o Mês do Ano Disponivel na Agenda:\n>>>"))
-                            x=1
-                        else:
-                            print("Opção inválida")
-                    i.ult_salario = "-------------"
-                    pickle.dump( Registro.emp_cadastrados, open( "emp_cadastrados.pickls", "wb" ) )
-                    k = input("ENTER")
-                    return
-            print("Empregado Não Cadastrado")
-            k = input("ENTER")
-        elif k==4:
-            return
-        else:
-            print("OPÇÃO INVÁLIDA")
-            k = input("ENTER")
+        i = Registro.get_empregados()
+        Registro.mostra_agendas()
+        i.setNova_Agenda()
+        Registro.salva_lista()
+        return
 
     def undo():
         print("Opção indisponivel no momento")

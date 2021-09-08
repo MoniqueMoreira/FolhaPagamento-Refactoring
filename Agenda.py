@@ -9,26 +9,12 @@ class Agenda():
         f = 0
         while(f!=1):
             tipo = int(input("Esolha o tipo da agenda\n1-Semanalmente\n2-Bi-Semanalmente\n3-Mensalmente\n4-Anual\n>>>"))
-            if tipo == 1:
-                self.tipo = "Semanalmente"
-                dia = int(input("Escolha o dia da semana:\n1-Segunda-feira\n2-Terça-feira\n3-Quarta-feira\n4-Quinta-feira\n5-Sexta-feira\n>>>"))
-                if dia == 1:
-                    self.dia = "Segunda-feira"
-                    f=1
-                elif dia == 2:
-                    self.dia = "Terça-feira"
-                    f=1
-                elif dia == 3:
-                    self.dia = "Quarta-feira"
-                    f=1
-                elif dia == 4:
-                    self.dia = "Quinta-feira"
-                    f=1
+            if tipo == 1 or tipo == 2:
+                if tipo == 1:
+                    self.tipo = "Semanalmente"
                 else:
-                    self.dia = "Sexta-feira"
-                    f=1
-            elif tipo == 2:
-                self.tipo = "Bi-Semanalmente"
+                    self.tipo = "Bi-Semanalmente"
+                    
                 dia = int(input("Escolha o dia da semana:\n1-Segunda-feira\n2-Terça-feira\n3-Quarta-feira\n4-Quinta-feira\n5-Sexta-feira\n>>>"))
                 if dia == 1:
                     self.dia = "Segunda-feira"
