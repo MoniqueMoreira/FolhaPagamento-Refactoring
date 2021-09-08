@@ -8,6 +8,6 @@
 
   Nesta mesmo refactory foi mudado a chamada do Cartão de ponto, Vendas, Taxas para dentro da class Empregados, já que todos os empregados podem executar a ação, e para quando extiver tentando acessa um empregado não cadastrado(NullEmpregado) podemos não seja executado um ação fantasma.
 
-*Terceiro Refactoring: Move Accumulation to collecting parameter
+*Terceiro Refactoring: Remove Assignments to Parameters
 
   Das class Taxas, Vendas era pedido o id do empregado, mais não era usado, foi retirado para torna a chamda do metodo mais simples.
