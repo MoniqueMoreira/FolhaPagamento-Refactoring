@@ -6,7 +6,7 @@
   
   obs.: fiz mudaças semelhantes na parte da agenda, redirecionei a parte da procura de empregados para metodo get_Empregado(), e realoquei a parte de modificar a agenda do funcionario para class empregados.
   
-## Segundo Refactoring: Extract class & Template Method
+## Segundo Refactoring: Extract class & Template Method & Move Method
 
   Nesta mesmo refactory foi mudado a chamada do Cartão de ponto, Vendas, Taxas para dentro da class Empregados, já que todos os empregados podem executar a ação, e para quando extiver tentando acessa um empregado não cadastrado(NullEmpregado) podemos não seja executado um ação fantasma.
 
@@ -14,7 +14,7 @@
 
   Das class Taxas, Vendas era pedido o id do empregado, mais não era usado, foi retirado para torna a chamda do metodo mais simples.
   
-obs.: fiz mudaças semelhantes na parte da agenda, redirecionei a parte da procura de empregados para metodo get_Empregado(), e realoquei a parte de modificar a agenda do funcionario para class empregados.
+obs.: fiz mudaças semelhantes na parte da agenda, redirecionei a parte da procura de empregados para metodo get_Empregado(), e realoquei a parte de modificar a agenda do funcionario para class empregados(Move Method).
 
 ## Qaurto Refactoring: Consolidate Duplicate Conditional Fragments
   
