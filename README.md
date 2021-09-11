@@ -16,9 +16,12 @@
   
 obs.: fiz mudaças semelhantes na parte da agenda, redirecionei a parte da procura de empregados para metodo get_Empregado(), e realoquei a parte de modificar a agenda do funcionario para class empregados(Move Method).
 
-## Qaurto Refactoring: Consolidate Duplicate Conditional Fragments
+## Quarto Refactoring: Consolidate Duplicate Conditional Fragments
   
   Diminuir a quantidade de if's juntado as ações repetidas que ocoriam na parte da escolha dos dias da semana para "Semanalmente" e "Bi-Semanalmente", também optei por tira o loop.
   
+## Quinto Refactoring: Move Method & Move Accumulation to Collecting Parameter
   
+  Nas class Horista/ Assalariado/ Comissionado, separei o method "receber" em quatro partes, agora o novo "receber" que vai chamar os outros method's, o "quant_receber" que ira calcular o valor que a empresa Bruto que empressa tem que paga, exemplo o horista, vai calcular as valores por hora, o e outro dois method que agora estão na class Empregados, que e o "dados_receber" que vai mostra as informações do empregado e sua forma de pagamento, e method "desconto", que mostra e retorna se o empregado pertencer ao sindicato, as sua taxas e deconta do salario bruto.
+  Optei por transferir os dois method's para class Empregados pois ele usava o method para qualquer tipo de empregado, isto fazia com que hovesse repetição de codigo nas subclasses.
 
