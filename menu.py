@@ -76,5 +76,6 @@ def menu():
             break 
         else:
             print("Opção Inválida")
-            i = input("ENTER")
+            h = input("ENTER")
+            
 menu()

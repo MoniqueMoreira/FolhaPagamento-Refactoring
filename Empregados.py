@@ -124,3 +124,24 @@ class Empregados(Sindicato,Banco,CartaoPonto,Vendas,Taxas):
         if self.sindicato == "Sim":
             Sindicato.toEmp_sind(self)
         print("Tipo de Empregado: {}".format(self.tipo))        
+
+    def desconto(self):
+        totalT = 0
+        tx_sind = 0
+        if self.sindicato == "Sim":
+            tx_sind = self.getTaxa()
+            print("Taxa Do Sindicato: {:.2f}".format(tx_sind))   
+            for i in self.taxas:
+                adicionais = i.getTaxas()
+                totalT = totalT + adicionais
+            print("Taxas de Serviço: {:.2f}".format(totalT))
+        return totalT + tx_sind
+        
+    def dados_receber(self):
+        print("tudo ok")
+        print("Nome: {}, ID: {}, Forma de Pagamanto: {}".format(self.nome,self.id_emp,self.pagamento))
+        if self.pagamento == "Correios":
+            print("Endereço: {}".format(self.endereco))
+        elif self.pagamento == "Conta bancária":
+            print("Conta: ",self.getConta())
+            print("Agencia: ",self.getAgencia())
