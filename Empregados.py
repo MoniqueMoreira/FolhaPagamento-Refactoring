@@ -138,7 +138,6 @@ class Empregados(Sindicato,Banco,CartaoPonto,Vendas,Taxas):
         return totalT + tx_sind
         
     def dados_receber(self):
-        print("tudo ok")
         print("Nome: {}, ID: {}, Forma de Pagamanto: {}".format(self.nome,self.id_emp,self.pagamento))
         if self.pagamento == "Correios":
             print("Endereço: {}".format(self.endereco))
