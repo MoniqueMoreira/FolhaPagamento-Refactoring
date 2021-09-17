@@ -35,9 +35,16 @@ class Registro():
             print("OPÇÃO INVÁLIDA")
 
     def mostra_emp():
+
         num_emp = len(Registro.emp_cadastrados)
         print("Empregados Disponíveis: {}\n".format(num_emp))
         for i in Registro.emp_cadastrados:
             i.toEmpregado()
             print()
         h=input("ENTER")
+
+    def mostra_agendas():
+        print("Agendas Disponiveis:")
+        for x in Registro.agenda_disp:
+            x.toAgenda()
+        f = input("ENTER")

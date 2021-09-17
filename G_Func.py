@@ -19,7 +19,7 @@ class G_Func(Registro):
         elif k==6:
             G_Func.ver_cartao_ponto()
         elif k==7:
-            G_Func.mostra_agendas()
+            Registro.mostra_agendas()
         elif k==8:
             G_Func.criar_agenda()
         else:
@@ -82,10 +82,5 @@ class G_Func(Registro):
         Registro.salva_lista()
         print("Nova agenda foi cria com Sucesso!!!")
 
-    def mostra_agendas():
-        print("Agendas Disponiveis:")
-        for x in Registro.agenda_disp:
-            x.toAgenda()
-        f = input("ENTER")
 
     
